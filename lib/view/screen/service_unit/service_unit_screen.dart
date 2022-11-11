@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/service/service_unit_service.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_form.dart';
+import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
+
+import '../../widget/buttons.dart';
 
 class ServiceUnitScreen extends StatelessWidget {
   const ServiceUnitScreen({Key? key}) : super(key: key);
@@ -75,6 +78,9 @@ class ServiceUnitScreen extends StatelessWidget {
                                   if (result == editOption) {
                                     await pushToServiceUnitEditFormScreen(
                                         serviceUnit: units[index]);
+                                  } else if (result == removeOption) {
+                                    Dialogs.deleteDialog(
+                                        context, units[index].name);
                                   }
                                 },
                               ))));
