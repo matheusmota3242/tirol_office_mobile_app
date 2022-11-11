@@ -14,7 +14,7 @@ class Buttons {
           minimumSize: const Size(minimumWidth, minimumHeight),
           backgroundColor: MyTheme.submitColor),
       child: const Text(
-        "Salvar",
+        "Confirmar",
         style: TextStyle(fontSize: fontSize),
       ),
     );

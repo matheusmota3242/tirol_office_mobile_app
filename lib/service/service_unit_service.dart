@@ -11,4 +11,8 @@ class ServiceUnitService {
       await collection.doc(serviceUnit.id).update(serviceUnit.toJson());
     }
   }
+
+  Future<void> remove(String id) async {
+    await collection.doc(id).delete();
+  }
 }

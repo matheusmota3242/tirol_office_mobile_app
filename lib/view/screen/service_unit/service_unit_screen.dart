@@ -11,6 +11,8 @@ class ServiceUnitScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = ServiceUnitService();
+
     const editOption = "Editar";
     const removeOption = "Remover";
 
@@ -45,7 +47,7 @@ class ServiceUnitScreen extends StatelessWidget {
                   child: Text("Erro de conexão."),
                 );
               case ConnectionState.active:
-                if (snapshot.hasData) {
+                if (snapshot.hasData && snapshot.data!.size > 0) {
                   List<ServiceUnit>? units = snapshot.data?.docs
                       .map((item) => ServiceUnit.fromJson(item.data(), item.id))
                       .toList();
@@ -82,7 +84,10 @@ class ServiceUnitScreen extends StatelessWidget {
                                         serviceUnit: units[index]);
                                   } else if (result == removeOption) {
                                     Dialogs.deleteDialog(
-                                        context, units[index].name);
+                                        context,
+                                        units[index].name,
+                                        service.remove,
+                                        units[index].id);
                                   }
                                 },
                               ))));

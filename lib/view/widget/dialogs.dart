@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/view/widget/buttons.dart';
 
 class Dialogs {
-  static deleteDialog(BuildContext context, String name) {
+  static deleteDialog(
+      BuildContext context, String name, Function removeCallback, String id) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -12,7 +13,14 @@ class Dialogs {
               actionsPadding: const EdgeInsets.symmetric(vertical: 18.0),
               actions: [
                 Buttons.cancelButton(popCallback: Navigator.of(context).pop),
-                Buttons.submitButton(submitCallback: () {})
+                Buttons.submitButton(submitCallback: () {
+                  try {
+                    removeCallback(id);
+                    Navigator.of(context).pop();
+                  } catch (e) {
+                    print(e);
+                  }
+                }),
               ],
             ));
   }

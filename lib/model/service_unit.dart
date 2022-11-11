@@ -6,6 +6,7 @@ class ServiceUnit {
   late int number;
 
   ServiceUnit.defaultInitialization() {
+    id = "";
     name = "";
     address = "";
     district = "";
