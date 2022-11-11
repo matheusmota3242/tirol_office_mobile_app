@@ -1,12 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/service/service_unit_service.dart';
+import 'package:tirol_office_mobile_app/view/screen/department/department_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_form.dart';
 import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
-
-import '../../widget/buttons.dart';
 
 class ServiceUnitScreen extends StatelessWidget {
   const ServiceUnitScreen({Key? key}) : super(key: key);
@@ -55,6 +53,10 @@ class ServiceUnitScreen extends StatelessWidget {
                       itemCount: units?.length,
                       itemBuilder: (context, index) => ListTile(
                           title: ListTile(
+                              onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DepartmentScreen())),
                               leading: const Icon(Icons.house),
                               title: Text(
                                 units![index].name,
