@@ -43,22 +43,21 @@ class ServiceUnitScreen extends StatelessWidget {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
-                return const Center(
-                  child: Text("Erro de conexão."),
-                );
+                return UtilsWidget.connectionFailed;
               case ConnectionState.active:
                 if (snapshot.hasData && snapshot.data!.size > 0) {
                   List<ServiceUnit>? units = snapshot.data?.docs
-                      .map((item) => ServiceUnit.fromJson(item.data(), item.id))
+                      .map((doc) => ServiceUnit.fromJson(doc.data(), doc.id))
                       .toList();
                   return ListView.builder(
                       itemCount: units?.length,
                       itemBuilder: (context, index) => ListTile(
                           title: ListTile(
-                              onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          DepartmentScreen())),
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => DepartmentScreen(
+                                            serviceUnitId: units[index].id,
+                                          ))),
                               leading: const Icon(Icons.house),
                               title: Text(
                                 units![index].name,
@@ -97,7 +96,7 @@ class ServiceUnitScreen extends StatelessWidget {
               case ConnectionState.waiting:
                 return UtilsWidget.loading;
               default:
-                return UtilsWidget.noData;
+                return UtilsWidget.unexpectedBehavior;
             }
           }),
     );

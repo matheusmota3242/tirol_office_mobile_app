@@ -4,6 +4,7 @@ import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
 import 'package:tirol_office_mobile_app/view/widget/buttons.dart';
+import 'package:tirol_office_mobile_app/view/widget/snackbars.dart';
 
 import '../../../service/service_unit_service.dart';
 import '../../widget/fields.dart';
@@ -18,10 +19,10 @@ class ServiceUnitFormScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _ServiceUnitFormScreenState();
 }
 
-final _formKey = GlobalKey<FormState>();
-final _service = ServiceUnitService();
-
 class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _service = ServiceUnitService();
+
   var nameController = TextEditingController();
   var addressController = TextEditingController();
   var districtController = TextEditingController();
@@ -51,10 +52,10 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
               district: districtController.text.trim(),
               number: int.parse(numberController.text.trim()));
           await _service.save(serviceUnit);
+          if (!mounted) return;
+          SnackBars.showSnackBar(context, 'Unidade salva com sucesso.');
         } catch (e) {
-          Fluttertoast.showToast(
-              msg: "Erro ao tentar salvar unidade.",
-              gravity: ToastGravity.CENTER);
+          SnackBars.showSnackBar(context, 'Erro ao tentar salvar unidade.');
           print(e);
         }
         await navigator.pushAndRemoveUntil(
@@ -64,7 +65,7 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
     }
 
     getTitle() =>
-        widget.serviceUnit.name == "" ? "NOVA UNIDADE" : "EDITAR UNIDADE";
+        widget.serviceUnit.name.isEmpty ? "NOVA UNIDADE" : "EDITAR UNIDADE";
 
     return Scaffold(
       appBar: AppBar(
