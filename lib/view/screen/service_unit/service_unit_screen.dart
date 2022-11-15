@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/service/service_unit_service.dart';
+import 'package:tirol_office_mobile_app/theme/theme.dart';
 import 'package:tirol_office_mobile_app/view/screen/department/department_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_form.dart';
 import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
@@ -57,13 +58,12 @@ class ServiceUnitScreen extends StatelessWidget {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => DepartmentScreen(
                                             serviceUnitId: units[index].id,
+                                            serviceUnitName: units[index].name,
                                           ))),
                               leading: const Icon(Icons.house),
                               title: Text(
                                 units![index].name,
-                                style: const TextStyle(
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.w500),
+                                style: MyTheme.listTileTitleStyle,
                               ),
                               subtitle: Text(
                                 '${units[index].district}, ${units[index].address}, ${units[index].number}',

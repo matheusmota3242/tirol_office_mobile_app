@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tirol_office_mobile_app/view/widget/snackbars.dart';
 
 import '../../../model/department.dart';
 import '../../../service/department_service.dart';
@@ -25,9 +26,25 @@ class DepartmentFormScreenState extends State<DepartmentFormScreen> {
     super.initState();
   }
 
-  getTitle() => widget.department.id.isEmpty
+  String getTitle() => widget.department.id.isEmpty
       ? "NOVO DEPARTAMENTO"
       : "EDITAR DEPARTAMENTO";
+
+  Future _submit() async {
+    var navigator = Navigator.of(context);
+    if (_formKey.currentState!.validate()) {
+      try {
+        widget.department.name = nameController.text;
+        await _service.save(widget.department);
+
+        if (!mounted) return;
+        SnackBars.showSnackBar(context, "Departamento salva com sucesso.");
+      } catch (e) {
+        SnackBars.showSnackBar(context, "Erro ao salvar departamento.");
+      }
+    }
+    navigator.pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +67,7 @@ class DepartmentFormScreenState extends State<DepartmentFormScreen> {
                     children: [
                       Buttons.cancelButton(
                           popCallback: Navigator.of(context).pop),
-                      Buttons.submitButton(submitCallback: () {})
+                      Buttons.submitButton(submitCallback: _submit)
                     ],
                   )
                 ],

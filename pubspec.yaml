@@ -33,8 +33,6 @@ dependencies:
     sdk: flutter
   email_validator: ^2.1.17
   string_validator: ^0.3.0
-  fluttertoast: ^8.1.1
-
 
   #Firebase
   cloud_firestore: ^3.5.1

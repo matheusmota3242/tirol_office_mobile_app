@@ -3,6 +3,8 @@ class Department {
   late String name;
   late String serviceUnitId;
 
+  Department(this.id, this.name, this.serviceUnitId);
+
   Department.defaultInitialization(this.serviceUnitId) {
     id = "";
     name = "";

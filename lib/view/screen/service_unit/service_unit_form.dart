@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
@@ -28,15 +27,19 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
   var districtController = TextEditingController();
   var numberController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
+  initControllers() {
     nameController.text = widget.serviceUnit.name;
     addressController.text = widget.serviceUnit.address;
     districtController.text = widget.serviceUnit.district;
     numberController.text = widget.serviceUnit.number == 0
         ? ""
         : widget.serviceUnit.number.toString();
+  }
+
+  @override
+  void initState() {
+    initControllers();
+    super.initState();
   }
 
   @override
@@ -58,9 +61,10 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
           SnackBars.showSnackBar(context, 'Erro ao tentar salvar unidade.');
           print(e);
         }
-        await navigator.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const ServiceUnitScreen()),
-            (route) => false);
+        navigator.pop();
+        // await navigator.pushAndRemoveUntil(
+        //     MaterialPageRoute(builder: (context) => const ServiceUnitScreen()),
+        //     (route) => false);
       }
     }
 
