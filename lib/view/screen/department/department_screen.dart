@@ -33,7 +33,7 @@ class DepartmentScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           ListTile(
             title: Text(
               serviceUnitName,
@@ -41,14 +41,14 @@ class DepartmentScreen extends StatelessWidget {
             ),
             leading: const Icon(Icons.home),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             height: 2,
             width: MediaQuery.of(context).size.width - 48,
             color: Colors.grey,
             padding: const EdgeInsets.symmetric(horizontal: 24),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Flexible(
             child: StreamBuilder(
                 stream: DepartmentService.collection
