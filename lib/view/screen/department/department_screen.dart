@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/theme/theme.dart';
 import 'package:tirol_office_mobile_app/view/screen/department/department_form_screen.dart';
+import 'package:tirol_office_mobile_app/view/screen/equipment/equipment_screen.dart';
+import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
 
 import '../../../model/department.dart';
@@ -16,6 +18,18 @@ class DepartmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _service = DepartmentService();
+
+    const editOption = "Editar";
+    const removeOption = "Remover";
+
+    Future pushToDepartmentFormScreen(Department department) async {
+      await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => DepartmentFormScreen(
+                department: department,
+              )));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("DEPARTAMENTOS"),
@@ -59,7 +73,7 @@ class DepartmentScreen extends StatelessWidget {
                     case ConnectionState.none:
                       return UtilsWidget.connectionFailed;
                     case ConnectionState.active:
-                      if (snapshot.hasData && snapshot.data!.size > 0) {
+                      if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                         List<Department>? departments = snapshot.data!.docs
                             .map((doc) =>
                                 Department.fromJson(doc.data(), doc.id))
@@ -74,7 +88,34 @@ class DepartmentScreen extends StatelessWidget {
                                   leading:
                                       const Icon(Icons.door_front_door_rounded),
                                   trailing: PopupMenuButton(
-                                      itemBuilder: (context) => []),
+                                      itemBuilder: (context) => [
+                                            const PopupMenuItem(
+                                                value: editOption,
+                                                child: Text(editOption)),
+                                            const PopupMenuItem(
+                                                value: removeOption,
+                                                child: Text(removeOption))
+                                          ],
+                                      onSelected: (result) async {
+                                        if (result == editOption) {
+                                          await pushToDepartmentFormScreen(
+                                              departments[index]);
+                                        } else if (result == removeOption) {
+                                          Dialogs.deleteDialog(
+                                              context,
+                                              departments[index].name,
+                                              _service.remove,
+                                              departments[index].id);
+                                        }
+                                      }),
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EquipmentScreen(
+                                              departmentId:
+                                                  departments[index].id,
+                                              departmentName:
+                                                  departments[index].name))),
                                 )));
                       } else {
                         return UtilsWidget.noData;

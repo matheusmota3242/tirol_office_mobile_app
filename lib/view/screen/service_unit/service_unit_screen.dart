@@ -17,7 +17,8 @@ class ServiceUnitScreen extends StatelessWidget {
     const editOption = "Editar";
     const removeOption = "Remover";
 
-    pushToServiceUnitEditFormScreen({required ServiceUnit serviceUnit}) async {
+    Future pushToServiceUnitEditFormScreen(
+        {required ServiceUnit serviceUnit}) async {
       await Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ServiceUnitFormScreen(
                 serviceUnit: serviceUnit,

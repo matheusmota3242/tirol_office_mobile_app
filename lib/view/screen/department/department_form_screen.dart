@@ -38,7 +38,7 @@ class DepartmentFormScreenState extends State<DepartmentFormScreen> {
         await _service.save(widget.department);
 
         if (!mounted) return;
-        SnackBars.showSnackBar(context, "Departamento salva com sucesso.");
+        SnackBars.showSnackBar(context, "Departamento salvo com sucesso.");
       } catch (e) {
         SnackBars.showSnackBar(context, "Erro ao salvar departamento.");
       }

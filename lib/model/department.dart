@@ -5,10 +5,9 @@ class Department {
 
   Department(this.id, this.name, this.serviceUnitId);
 
-  Department.defaultInitialization(this.serviceUnitId) {
-    id = "";
-    name = "";
-  }
+  Department.defaultInitialization(this.serviceUnitId)
+      : id = "",
+        name = "";
 
   Department.fromJson(Map<String, dynamic> json, this.id)
       : name = json['name'],

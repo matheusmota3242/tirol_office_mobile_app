@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/view/widget/buttons.dart';
+import 'package:tirol_office_mobile_app/view/widget/snackbars.dart';
 
 class Dialogs {
   static deleteDialog(
@@ -16,6 +17,8 @@ class Dialogs {
                 Buttons.submitButton(submitCallback: () {
                   try {
                     removeCallback(id);
+                    SnackBars.showSnackBar(
+                        context, 'Item removido com sucesso.');
                     Navigator.of(context).pop();
                   } catch (e) {
                     print(e);
