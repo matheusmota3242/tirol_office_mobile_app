@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/service/service_unit_service.dart';
@@ -5,6 +6,7 @@ import 'package:tirol_office_mobile_app/theme/theme.dart';
 import 'package:tirol_office_mobile_app/view/screen/department/department_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_form.dart';
 import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
+import 'package:tirol_office_mobile_app/view/widget/drawer.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
 
 class ServiceUnitScreen extends StatelessWidget {
@@ -14,6 +16,7 @@ class ServiceUnitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final service = ServiceUnitService();
 
+    const screenTitle = "UNIDADES";
     const editOption = "Editar";
     const removeOption = "Remover";
 
@@ -25,9 +28,11 @@ class ServiceUnitScreen extends StatelessWidget {
               )));
     }
 
+    String? email = FirebaseAuth.instance.currentUser!.email;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("UNIDADES"),
+        title: const Text(screenTitle),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
@@ -40,6 +45,7 @@ class ServiceUnitScreen extends StatelessWidget {
           )
         ],
       ),
+      drawer: MyDrawer.drawer(context, screenTitle),
       body: StreamBuilder(
           stream: ServiceUnitService.collection.snapshots(),
           builder: (context, snapshot) {
