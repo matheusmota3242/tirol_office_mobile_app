@@ -112,10 +112,13 @@ class DepartmentScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => EquipmentScreen(
-                                              departmentId:
-                                                  departments[index].id,
-                                              departmentName:
-                                                  departments[index].name))),
+                                                departmentId:
+                                                    departments[index].id,
+                                                departmentName:
+                                                    departments[index].name,
+                                                serviceUnitName:
+                                                    serviceUnitName,
+                                              ))),
                                 )));
                       } else {
                         return UtilsWidget.noData;

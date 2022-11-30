@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/theme/theme.dart';
+import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_screen.dart';
 
 import '../../../model/equipment.dart';
 import '../../../service/equipment_service.dart';
@@ -10,15 +11,17 @@ import 'equipment_form_screen.dart';
 
 class EquipmentScreen extends StatelessWidget {
   const EquipmentScreen(
-      {Key? key, required this.departmentId, required this.departmentName})
+      {Key? key,
+      required this.departmentId,
+      required this.departmentName,
+      required this.serviceUnitName})
       : super(key: key);
 
-  final String departmentId;
-  final String departmentName;
+  final String departmentId, departmentName, serviceUnitName;
 
   @override
   Widget build(BuildContext context) {
-    var _service = EquipmentService();
+    var service = EquipmentService();
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +55,7 @@ class EquipmentScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       ListTile(
                         title: Text(
-                          departmentName,
+                          '$serviceUnitName  >  $departmentName',
                           style: MyTheme.listTileTitleStyle,
                         ),
                         leading: const Icon(Icons.home),
@@ -73,6 +76,7 @@ class EquipmentScreen extends StatelessWidget {
                                       style: MyTheme.listTileTitleStyle),
                                   subtitle:
                                       Text(equipments[index].observations),
+                                  isThreeLine: true,
                                   leading: const Icon(Icons.settings),
                                   trailing: PopupMenuButton(
                                     itemBuilder: (context) => [
@@ -97,11 +101,23 @@ class EquipmentScreen extends StatelessWidget {
                                         Dialogs.deleteDialog(
                                             context,
                                             equipments[index].name,
-                                            _service.remove,
+                                            service.remove,
                                             equipments[index].id);
                                       }
                                     },
                                   ),
+                                  onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MaintenanceScreen(
+                                                equipmentName:
+                                                    equipments[index].name,
+                                                equipmentId:
+                                                    equipments[index].id,
+                                                departmentName: departmentName,
+                                                serviceUnitName:
+                                                    serviceUnitName,
+                                              ))),
                                 )),
                       ),
                     ],
