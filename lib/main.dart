@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tirol_office_mobile_app/view/screen/auth/login_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       title: 'Flutter Demo',
       theme: ThemeData(
           // This is the theme of your application.

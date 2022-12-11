@@ -7,7 +7,7 @@ class MaintenanceListTile {
         children: [
           ListTile(
             title: Text(maintenance.dateTime.toString()),
-            subtitle: Text(maintenance.description),
+            subtitle: Text(maintenance.problemDescription),
             isThreeLine: true,
           )
         ],

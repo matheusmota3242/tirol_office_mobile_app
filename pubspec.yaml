@@ -31,8 +31,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   email_validator: ^2.1.17
   string_validator: ^0.3.0
+  intl: ^0.17.0
 
   #Firebase
   cloud_firestore: ^3.5.1
