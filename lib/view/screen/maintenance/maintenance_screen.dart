@@ -77,6 +77,8 @@ class MaintenanceScreen extends StatelessWidget {
                     } else {
                       return UtilsWidget.noData;
                     }
+                  case ConnectionState.waiting:
+                    return UtilsWidget.loading;
                   default:
                     return UtilsWidget.unexpectedBehavior;
                 }

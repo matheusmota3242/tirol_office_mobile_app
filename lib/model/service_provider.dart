@@ -5,6 +5,13 @@ class ServiceProvider {
   late String email;
   late String phone;
 
+  ServiceProvider.defaultInitialization()
+      : id = '',
+        name = '',
+        description = '',
+        email = '',
+        phone = '';
+
   ServiceProvider.fromJson(Map<String, dynamic> json, this.id)
       : name = json['name'],
         description = json['description'],

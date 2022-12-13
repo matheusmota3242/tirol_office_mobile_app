@@ -39,8 +39,8 @@ class EquipmentFormScreenState extends State<EquipmentFormScreen> {
       } catch (e) {
         SnackBars.showSnackBar(context, "Erro ao salvar equipamento.");
       }
+      navigator.pop();
     }
-    navigator.pop();
   }
 
   @override
@@ -82,7 +82,7 @@ class EquipmentFormScreenState extends State<EquipmentFormScreen> {
                       ),
                     ),
                     validator: (value) =>
-                        value!.isEmpty ? "Campo obrigatório" : null,
+                        value!.trim().isEmpty ? "Campo obrigatório" : null,
                     controller: observationsController,
                   ),
                   const SizedBox(height: 24.0),

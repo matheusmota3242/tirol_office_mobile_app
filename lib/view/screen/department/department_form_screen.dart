@@ -42,8 +42,8 @@ class DepartmentFormScreenState extends State<DepartmentFormScreen> {
       } catch (e) {
         SnackBars.showSnackBar(context, "Erro ao salvar departamento.");
       }
+      navigator.pop();
     }
-    navigator.pop();
   }
 
   @override

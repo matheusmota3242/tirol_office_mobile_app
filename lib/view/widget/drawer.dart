@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
 import '../../theme/theme.dart';
+import '../screen/service_provider.dart/service_provider_screen.dart';
 
 class MyDrawer {
   static String serviceUnitsTitle = 'Unidades';
@@ -25,7 +26,7 @@ class MyDrawer {
                   ),
                   Text(
                     FirebaseAuth.instance.currentUser!.email!,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   )
                 ],
               )),
@@ -37,7 +38,8 @@ class MyDrawer {
             leading: const Icon(Icons.house),
             onTap: () {
               if (isNotActualScreen(serviceUnitsTitle, actualScreenTitle)) {
-                // TODO
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ServiceUnitScreen()));
               }
             },
           ),
@@ -62,7 +64,7 @@ class MyDrawer {
             onTap: () {
               if (isNotActualScreen(serviceProvidersTitle, actualScreenTitle)) {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ServiceUnitScreen()));
+                    builder: (context) => const ServiceProviderScreen()));
               }
             },
           )

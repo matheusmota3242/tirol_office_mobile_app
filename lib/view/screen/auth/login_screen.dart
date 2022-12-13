@@ -59,7 +59,7 @@ class LoginScreenState extends State<LoginScreen> {
           _horizontalPadding, verticalPadding),
       child: TextFormField(
         onChanged: (value) => _email = value.trim(),
-        validator: (value) => _validationUtils.validateEmail(value),
+        validator: (value) => _validationUtils.validateEmail(value!.trim()),
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.email),
@@ -88,7 +88,8 @@ class LoginScreenState extends State<LoginScreen> {
           TextFormField(
             obscureText: true,
             onChanged: (value) => _password = value.trim(),
-            validator: (value) => _validationUtils.validatePassword(value),
+            validator: (value) =>
+                _validationUtils.validatePassword(value!.trim()),
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.lock),
               filled: true,

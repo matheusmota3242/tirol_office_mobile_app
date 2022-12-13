@@ -62,9 +62,6 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
           print(e);
         }
         navigator.pop();
-        // await navigator.pushAndRemoveUntil(
-        //     MaterialPageRoute(builder: (context) => const ServiceUnitScreen()),
-        //     (route) => false);
       }
     }
 

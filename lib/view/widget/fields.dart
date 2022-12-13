@@ -17,7 +17,34 @@ class Fields {
               borderSide: BorderSide.none,
             ),
           ),
-          validator: (value) => value!.isEmpty ? "Campo obrigatório" : null,
+          validator: (value) =>
+              value!.trim().isEmpty ? "Campo obrigatório" : null,
+          controller: controller,
+        ),
+        const SizedBox(height: 24.0),
+      ],
+    );
+  }
+
+  static Widget getTextFormWithMultipleLinesField(
+      TextEditingController controller, String fieldName, int numberOfLines) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(fieldName,
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
+        const SizedBox(height: 12.0),
+        TextFormField(
+          maxLines: numberOfLines,
+          decoration: const InputDecoration(
+            filled: true,
+            counterStyle: TextStyle(color: Colors.red),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+            ),
+          ),
+          validator: (value) =>
+              value!.trim().isEmpty ? "Campo obrigatório" : null,
           controller: controller,
         ),
         const SizedBox(height: 24.0),
@@ -35,7 +62,8 @@ class Fields {
         const SizedBox(height: 12.0),
         TextFormField(
           controller: controller,
-          validator: (value) => value!.isEmpty ? "Campo obrigatório" : null,
+          validator: (value) =>
+              value!.trim().isEmpty ? "Campo obrigatório" : null,
           keyboardType: TextInputType.number,
           decoration: const InputDecoration(
             filled: true,

@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:tirol_office_mobile_app/view/widget/fields.dart';
 
 import '../../../model/maintenance.dart';
+import '../../../service/maintenance_service.dart';
+import '../../widget/buttons.dart';
+import '../../widget/snackbars.dart';
 
 class MaintenanceFormScreen extends StatefulWidget {
   const MaintenanceFormScreen({Key? key, required this.maintenance})
@@ -15,11 +18,33 @@ class MaintenanceFormScreen extends StatefulWidget {
 
 class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _service = MaintenanceService();
+
   var dateController = TextEditingController();
   var problemDescriptionController = TextEditingController();
 
   String getTitle() =>
       widget.maintenance.id.isEmpty ? 'NOVA MANUTENÇÃO' : 'EDITAR MANUTENÇÃO';
+
+  Future _submit() async {
+    var navigator = Navigator.of(context);
+    if (_formKey.currentState!.validate()) {
+      try {
+        widget.maintenance.dateTime = DateTime.parse(
+            '${dateController.text.substring(6, 10)}-${dateController.text.substring(3, 5)}-${dateController.text.substring(0, 2)}');
+        widget.maintenance.problemDescription =
+            problemDescriptionController.text;
+        await _service.save(widget.maintenance);
+
+        if (!mounted) return;
+        SnackBars.showSnackBar(context, "Departamento salvo com sucesso.");
+      } catch (e) {
+        SnackBars.showSnackBar(context, "Erro ao salvar departamento.");
+        print(e);
+      }
+      navigator.pop();
+    }
+  }
 
   @override
   void initState() {
@@ -86,8 +111,16 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
                       const SizedBox(height: 24.0),
                     ],
                   ),
-                  Fields.getTextFormField(
-                      problemDescriptionController, 'Descrição do problema')
+                  Fields.getTextFormWithMultipleLinesField(
+                      problemDescriptionController, 'Descrição do problema', 3),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Buttons.cancelButton(
+                          popCallback: () => Navigator.of(context).pop),
+                      Buttons.submitButton(submitCallback: _submit)
+                    ],
+                  )
                 ],
               ))),
     );
