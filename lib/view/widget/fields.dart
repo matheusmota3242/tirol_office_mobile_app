@@ -57,8 +57,8 @@ class Fields {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Número",
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
+        Text(fieldName,
+            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
         const SizedBox(height: 12.0),
         TextFormField(
           controller: controller,

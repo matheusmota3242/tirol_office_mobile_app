@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tirol_office_mobile_app/model/maintenance.dart';
+import 'package:tirol_office_mobile_app/model/service_provider.dart';
 
 import 'abstract_service.dart';
 
-class ServiceProviderService extends AbstractService<Maintenance> {
+class ServiceProviderService extends AbstractService<ServiceProvider> {
   static var collection =
       FirebaseFirestore.instance.collection('service-providers');
 
@@ -13,7 +14,7 @@ class ServiceProviderService extends AbstractService<Maintenance> {
   }
 
   @override
-  Future<void> save(Maintenance entity) async {
+  Future<void> save(ServiceProvider entity) async {
     if (entity.id.isEmpty) {
       await collection.add(entity.toJson());
     } else {
