@@ -30,6 +30,15 @@ class ServiceProviderFormScreenState extends State<ServiceProviderFormScreen> {
       ? 'NOVO PROVEDOR DE SERVIÇO'
       : 'EDITAR PROVEDOR DE SERVIÇO';
 
+  @override
+  void initState() {
+    _nameController.text = widget.serviceProvider.name;
+    _descriptionController.text = widget.serviceProvider.description;
+    _phoneController.text = widget.serviceProvider.phone;
+    _emailController.text = widget.serviceProvider.email;
+    super.initState();
+  }
+
   Future _submit() async {
     var navigator = Navigator.of(context);
     if (_formKey.currentState!.validate()) {
@@ -68,6 +77,7 @@ class ServiceProviderFormScreenState extends State<ServiceProviderFormScreen> {
                 Fields.getNumberFormField(_phoneController, "Telefone"),
                 Fields.getTextFormField(_emailController, "E-mail"),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Buttons.cancelButton(
                         popCallback: Navigator.of(context).pop),

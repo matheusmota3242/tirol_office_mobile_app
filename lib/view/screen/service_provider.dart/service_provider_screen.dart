@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/service/service_provider_service.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_provider.dart/service_provider_form_screen.dart';
+import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
 import 'package:tirol_office_mobile_app/view/widget/drawer.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
 
@@ -11,7 +12,12 @@ class ServiceProviderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final service = ServiceProviderService();
     const screenTitle = 'PROVEDORES DE SERVIÇO';
+
+    const editOption = "Editar";
+    const removeOption = "Remover";
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(screenTitle),
@@ -44,6 +50,35 @@ class ServiceProviderScreen extends StatelessWidget {
                     itemCount: serviceProviders.length,
                     itemBuilder: (context, index) => ListTile(
                       title: Text(serviceProviders[index].name),
+                      subtitle: Text(
+                          '\n${serviceProviders[index].description}\n\nTelefone: ${serviceProviders[index].phone}\n\nEmail: ${serviceProviders[index].email}'),
+                      contentPadding: const EdgeInsets.all(24),
+                      leading: const Icon(Icons.business_center),
+                      trailing: PopupMenuButton(
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: editOption,
+                            child: Text(editOption),
+                          ),
+                          const PopupMenuItem(
+                              value: removeOption, child: Text(removeOption))
+                        ],
+                        onSelected: (value) async {
+                          if (editOption == value) {
+                            await Navigator.of(context).push(MaterialPageRoute(
+                                builder: ((context) =>
+                                    ServiceProviderFormScreen(
+                                        serviceProvider:
+                                            serviceProviders[index]))));
+                          } else {
+                            Dialogs.deleteDialog(
+                                context,
+                                serviceProviders[index].name,
+                                service.remove,
+                                serviceProviders[index].id);
+                          }
+                        },
+                      ),
                     ),
                   );
                 } else {
