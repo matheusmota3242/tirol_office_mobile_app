@@ -20,6 +20,37 @@ class Buttons {
     );
   }
 
+  static Widget button({required Function callback, required String message}) {
+    return ElevatedButton(
+      onPressed: () => callback(),
+      style: ElevatedButton.styleFrom(
+          minimumSize: const Size(minimumWidth, minimumHeight),
+          backgroundColor: MyTheme.primaryColor),
+      child: const Text(
+        'Ok',
+        style: TextStyle(fontSize: fontSize),
+      ),
+    );
+  }
+
+  static Widget submitEnablableButton(
+      {required Function submitCallback, required bool isEnable}) {
+    return ElevatedButton(
+      onPressed: isEnable
+          ? () async {
+              await submitCallback();
+            }
+          : null,
+      style: ElevatedButton.styleFrom(
+          minimumSize: const Size(minimumWidth, minimumHeight),
+          backgroundColor: MyTheme.submitColor),
+      child: const Text(
+        "Confirmar",
+        style: TextStyle(fontSize: fontSize),
+      ),
+    );
+  }
+
   static Widget cancelButton({required Function popCallback}) {
     return ElevatedButton(
       onPressed: () => popCallback(),

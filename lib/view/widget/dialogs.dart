@@ -27,4 +27,18 @@ class Dialogs {
               ],
             ));
   }
+
+  static regularDialog(BuildContext context, String title, String message) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actionsAlignment: MainAxisAlignment.center,
+              actions: [
+                Buttons.button(
+                    callback: Navigator.of(context).pop, message: message)
+              ],
+            ));
+  }
 }

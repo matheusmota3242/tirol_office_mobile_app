@@ -12,10 +12,17 @@ class MaintenanceScreen extends StatelessWidget {
       required this.equipmentName,
       required this.equipmentId,
       required this.departmentName,
-      required this.serviceUnitName})
+      required this.departmentId,
+      required this.serviceUnitName,
+      required this.serviceUnitId})
       : super(key: key);
 
-  final String equipmentName, equipmentId, departmentName, serviceUnitName;
+  final String equipmentName,
+      equipmentId,
+      departmentName,
+      departmentId,
+      serviceUnitName,
+      serviceUnitId;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class MaintenanceScreen extends StatelessWidget {
               onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => MaintenanceFormScreen(
                       maintenance: Maintenance.defaultInitialization(
-                          equipmentName, departmentName, serviceUnitName)))),
+                          equipmentId, departmentId, serviceUnitId)))),
               icon: const Icon(Icons.add),
             )
           ],
@@ -54,9 +61,9 @@ class MaintenanceScreen extends StatelessWidget {
             Flexible(
                 child: StreamBuilder(
               stream: MaintenanceService.collection
-                  .where('serviceUnitName', isEqualTo: serviceUnitName)
-                  .where('departmentName', isEqualTo: departmentName)
-                  .where('equipmentName', isEqualTo: equipmentName)
+                  .where('serviceUnitId', isEqualTo: serviceUnitId)
+                  .where('departmentId', isEqualTo: departmentId)
+                  .where('equipmentId', isEqualTo: equipmentId)
                   .snapshots(),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
@@ -65,8 +72,10 @@ class MaintenanceScreen extends StatelessWidget {
                   case ConnectionState.active:
                     if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                       List<Maintenance>? maintenances = snapshot.data!.docs
-                          .map(
-                              (doc) => Maintenance.fromJson(doc.data(), doc.id))
+                          .map((doc) => Maintenance.fromJson(
+                              MaintenanceService.convertTimestampToDateTime(
+                                  doc.data()),
+                              doc.id))
                           .toList();
                       return ListView.builder(
                         itemCount: maintenances.length,

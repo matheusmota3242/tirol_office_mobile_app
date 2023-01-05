@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
-import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
-
 import 'package:tirol_office_mobile_app/view/widget/buttons.dart';
 import 'package:tirol_office_mobile_app/view/widget/snackbars.dart';
 

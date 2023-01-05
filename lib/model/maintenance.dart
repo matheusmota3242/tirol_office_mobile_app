@@ -4,13 +4,13 @@ class Maintenance {
   late bool occured;
   late String problemDescription;
   late String solutionDescription;
-  late String equipmentName;
-  late String serviceProviderName;
-  late String departmentName;
-  late String serviceUnitName;
+  late String equipmentId;
+  late String serviceProviderId;
+  late String departmentId;
+  late String serviceUnitId;
 
   Maintenance.defaultInitialization(
-      this.equipmentName, this.departmentName, this.serviceUnitName)
+      this.equipmentId, this.departmentId, this.serviceUnitId)
       : id = '',
         dateTime = DateTime.now(),
         occured = false,
@@ -22,19 +22,19 @@ class Maintenance {
         occured = json['occured'],
         problemDescription = json['problemDescription'],
         solutionDescription = json['solutionDescription'],
-        equipmentName = json['equipmentName'],
-        serviceProviderName = json['serviceProviderName'],
-        departmentName = json['departmentName'],
-        serviceUnitName = json['serviceUnitName'];
+        equipmentId = json['equipmentId'],
+        serviceProviderId = json['serviceProviderId'],
+        departmentId = json['departmentId'],
+        serviceUnitId = json['serviceUnitId'];
 
   Map<String, dynamic> toJson() => {
         'dateTime': dateTime,
         'occured': occured,
         'solutionDescription': solutionDescription,
         'problemDescription': problemDescription,
-        'equipmenName': equipmentName,
-        'serviceProviderName': serviceProviderName,
-        'departmentName': departmentName,
-        'serviceUnitName': serviceUnitName
+        'equipmentId': equipmentId,
+        'serviceProviderId': serviceProviderId,
+        'departmentId': departmentId,
+        'serviceUnitId': serviceUnitId
       };
 }

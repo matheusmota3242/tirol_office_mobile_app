@@ -18,7 +18,7 @@ class DepartmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _service = DepartmentService();
+    final service = DepartmentService();
 
     const editOption = "Editar";
     const removeOption = "Remover";
@@ -104,7 +104,7 @@ class DepartmentScreen extends StatelessWidget {
                                           Dialogs.deleteDialog(
                                               context,
                                               departments[index].name,
-                                              _service.remove,
+                                              service.remove,
                                               departments[index].id);
                                         }
                                       }),
@@ -118,6 +118,9 @@ class DepartmentScreen extends StatelessWidget {
                                                     departments[index].name,
                                                 serviceUnitName:
                                                     serviceUnitName,
+                                                serviceUnitId:
+                                                    departments[index]
+                                                        .serviceUnitId,
                                               ))),
                                 )));
                       } else {

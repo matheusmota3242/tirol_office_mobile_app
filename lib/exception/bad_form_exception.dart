@@ -1,0 +1,1 @@
+class BadFormException implements Exception {}

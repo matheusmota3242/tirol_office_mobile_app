@@ -19,4 +19,11 @@ class MaintenanceService extends AbstractService<Maintenance> {
       await collection.doc(entity.id).update(entity.toJson());
     }
   }
+
+  static Map<String, dynamic> convertTimestampToDateTime(
+      Map<String, dynamic> json) {
+    Timestamp timestamp = json['dateTime'];
+    json['dateTime'] = timestamp.toDate();
+    return json;
+  }
 }

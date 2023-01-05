@@ -14,10 +14,11 @@ class EquipmentScreen extends StatelessWidget {
       {Key? key,
       required this.departmentId,
       required this.departmentName,
-      required this.serviceUnitName})
+      required this.serviceUnitName,
+      required this.serviceUnitId})
       : super(key: key);
 
-  final String departmentId, departmentName, serviceUnitName;
+  final String departmentId, departmentName, serviceUnitName, serviceUnitId;
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +116,10 @@ class EquipmentScreen extends StatelessWidget {
                                                 equipmentId:
                                                     equipments[index].id,
                                                 departmentName: departmentName,
+                                                departmentId: departmentId,
                                                 serviceUnitName:
                                                     serviceUnitName,
+                                                serviceUnitId: serviceUnitId,
                                               ))),
                                 )),
                       ),

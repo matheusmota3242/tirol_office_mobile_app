@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tirol_office_mobile_app/model/maintenance.dart';
 import 'package:tirol_office_mobile_app/model/service_provider.dart';
 
 import 'abstract_service.dart';

@@ -6,4 +6,6 @@ class MyTheme {
   static const cancelColor = Color.fromARGB(255, 146, 32, 32);
   static const listTileTitleStyle = TextStyle(
       fontSize: 17.0, fontWeight: FontWeight.w500, color: Color(0xFF303030));
+  static const labelStyle = TextStyle(
+      fontWeight: FontWeight.w500, fontSize: 18, color: Color(0xFF303030));
 }

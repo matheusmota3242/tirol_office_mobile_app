@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/service/service_provider_service.dart';
+import 'package:tirol_office_mobile_app/theme/theme.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_provider.dart/service_provider_form_screen.dart';
 import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
 import 'package:tirol_office_mobile_app/view/widget/drawer.dart';
@@ -49,7 +50,8 @@ class ServiceProviderScreen extends StatelessWidget {
                   return ListView.builder(
                     itemCount: serviceProviders.length,
                     itemBuilder: (context, index) => ListTile(
-                      title: Text(serviceProviders[index].name),
+                      title: Text(serviceProviders[index].name,
+                          style: MyTheme.listTileTitleStyle),
                       subtitle: Text(
                           '\n${serviceProviders[index].description}\n\nTelefone: ${serviceProviders[index].phone}\n\nEmail: ${serviceProviders[index].email}'),
                       contentPadding: const EdgeInsets.all(24),
