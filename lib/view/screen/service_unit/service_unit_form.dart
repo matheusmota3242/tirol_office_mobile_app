@@ -57,7 +57,6 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
           SnackBars.showSnackBar(context, 'Unidade salva com sucesso.');
         } catch (e) {
           SnackBars.showSnackBar(context, 'Erro ao tentar salvar unidade.');
-          print(e);
         }
         navigator.pop();
       }

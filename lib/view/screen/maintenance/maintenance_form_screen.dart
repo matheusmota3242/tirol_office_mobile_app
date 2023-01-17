@@ -15,6 +15,7 @@ import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
 import '../../../model/maintenance.dart';
 import '../../../model/service_provider.dart';
 import '../../../service/maintenance_service.dart';
+import '../../../utils/utils.dart';
 import '../../widget/buttons.dart';
 import '../../widget/snackbars.dart';
 
@@ -35,6 +36,7 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
 
   var dateController = TextEditingController();
   var problemDescriptionController = TextEditingController();
+  var solutionDescriptionController = TextEditingController();
   final serviceProviderDropdownHintMessage = 'Selecione o provedor de serviço*';
   //var serviceProviderDropdown = ServiceProviderDropdown();
 
@@ -52,17 +54,23 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
 
   handleMaintenanceFormData() {
     if (selectedServiceProvider.isNotEmpty) {
-      widget.maintenance.dateTime = DateTime.parse(
-          '${dateController.text.substring(6, 10)}-${dateController.text.substring(3, 5)}-${dateController.text.substring(0, 2)}');
-      widget.maintenance.problemDescription = problemDescriptionController.text;
-      widget.maintenance.serviceProviderId = serviceProviders
-          .firstWhere((sp) => sp.name == selectedServiceProvider)
-          .id;
+      attributeValuesToMaintenance();
     } else {
       Dialogs.regularDialog(
           context, 'Formulário inválido', 'Selecione um provedor de serviço.');
       throw BadFormException();
     }
+  }
+
+  void attributeValuesToMaintenance() {
+    widget.maintenance.dateTime = DateTime.parse(
+        '${dateController.text.substring(6, 10)}-${dateController.text.substring(3, 5)}-${dateController.text.substring(0, 2)}');
+    widget.maintenance.problemDescription = problemDescriptionController.text;
+    widget.maintenance.solutionDescription =
+        widget.maintenance.id.isEmpty ? '' : solutionDescriptionController.text;
+    widget.maintenance.serviceProviderId = serviceProviders
+        .firstWhere((sp) => sp.name == selectedServiceProvider)
+        .id;
   }
 
   Future _submit() async {
@@ -78,7 +86,6 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
         return;
       } catch (e) {
         SnackBars.showSnackBar(context, "Erro ao salvar departamento.");
-        print(e);
       }
       navigator.pop();
     }
@@ -89,6 +96,7 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
     dateController.text =
         DateFormat('dd/MM/yyyy').format(widget.maintenance.dateTime);
     problemDescriptionController.text = widget.maintenance.problemDescription;
+    solutionDescriptionController.text = widget.maintenance.solutionDescription;
 
     _getServiceProviders();
 
@@ -181,9 +189,33 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
                     dateField(),
                     const SizedBox(height: 24.0),
                     Fields.getTextFormWithMultipleLinesField(
-                        problemDescriptionController,
-                        'Descrição do problema*',
-                        3),
+                        problemDescriptionController, 'Descrição*', 3),
+                    const SizedBox(height: 24.0),
+                    Visibility(
+                        visible: widget.maintenance.id.isEmpty &&
+                                widget.maintenance.occured
+                            ? false
+                            : true,
+                        child: Fields.getTextFormWithMultipleLinesField(
+                            solutionDescriptionController, "Solução*", 3)),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Visibility(
+                      visible: Utils.isTodayAfterDateTime(
+                          widget.maintenance.dateTime),
+                      child: CheckboxListTile(
+                          title: const Text(
+                            'Status',
+                            style: MyTheme.listTileTitleStyle,
+                          ),
+                          value: widget.maintenance.occured,
+                          onChanged: (value) {
+                            setState(() {
+                              widget.maintenance.occured = value!;
+                            });
+                          }),
+                    ),
                     const SizedBox(
                       height: 24,
                     ),

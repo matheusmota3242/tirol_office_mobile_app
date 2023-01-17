@@ -18,4 +18,12 @@ class ServiceUnitService implements AbstractService<ServiceUnit> {
   Future<void> remove(String id) async {
     await collection.doc(id).delete();
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
+    return await collection.get();
+  }
+
+  getNameById(String id, List<ServiceUnit> units) {
+    return units.firstWhere((unit) => unit.id == id);
+  }
 }

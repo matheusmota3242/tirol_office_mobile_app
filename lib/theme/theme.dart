@@ -8,4 +8,9 @@ class MyTheme {
       fontSize: 17.0, fontWeight: FontWeight.w500, color: Color(0xFF303030));
   static const labelStyle = TextStyle(
       fontWeight: FontWeight.w500, fontSize: 18, color: Color(0xFF303030));
+
+  static getMaintenanceStatusColor(bool occured) => TextStyle(
+      fontSize: 17.0,
+      fontWeight: FontWeight.w500,
+      color: occured ? Colors.green[600] : Colors.red[600]);
 }

@@ -20,4 +20,9 @@ class ServiceProviderService extends AbstractService<ServiceProvider> {
       await collection.doc(entity.id).update(entity.toJson());
     }
   }
+
+  static String getServiceProviderNameById(
+      String id, List<ServiceProvider> serviceProviders) {
+    return serviceProviders.firstWhere((sp) => sp.id == id).name;
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_list_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
 import '../../theme/theme.dart';
@@ -51,7 +52,8 @@ class MyDrawer {
             leading: const Icon(Icons.healing),
             onTap: () {
               if (isNotActualScreen(maintenancesTitle, actualScreenTitle)) {
-                // TODO
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const MaintenanceListScreen()));
               }
             },
           ),
