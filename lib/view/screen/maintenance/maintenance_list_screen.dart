@@ -39,7 +39,7 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
       units = queryResult.docs
           .map((doc) => ServiceUnit.fromJson(doc.data(), doc.id))
           .toList();
-      unitIds.addAll(units.map((u) => u.id).toList());
+      unitIds.addAll(units.map((u) => u.name).toList());
     }
 
     loadingMobx.setLoading(false);
@@ -58,30 +58,31 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
             return UtilsWidget.loading;
           } else {
             return Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.only(top: 24),
               child: ListView(
                 children: [
-                  // DropdownButtonFormField(
-                  //     value: 'Todos',
-                  //     decoration: const InputDecoration(
-                  //       labelText: 'Provedores de serviço',
-                  //       labelStyle: MyTheme.labelStyle,
-                  //       filled: true,
-                  //       prefixIcon: Icon(Icons.business_center),
-                  //       border: OutlineInputBorder(
-                  //         borderSide: BorderSide.none,
-                  //       ),
-                  //     ),
-                  //     items: unitIds
-                  //         .map((unitId) => DropdownMenuItem(
-                  //               value: unitId,
-                  //               child: Text(
-                  //                   unitService.getNameById(unitId, units)),
-                  //             ))
-                  //         .toList(),
-                  //     onChanged: (value) {
-                  //       serviceUnitParamMobx.setValue(value!);
-                  //     }),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: DropdownButtonFormField(
+                        value: Constants.allItemsText,
+                        decoration: const InputDecoration(
+                          labelText: 'Unidades de serviço',
+                          labelStyle: MyTheme.labelStyle,
+                          filled: true,
+                          prefixIcon: Icon(Icons.business_center),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                        items: unitIds
+                            .map((unitId) => DropdownMenuItem(
+                                value: unitId, child: Text(unitId)))
+                            .toList(),
+                        onChanged: (value) {
+                          value = ServiceUnitService.getIdByName(value!, units);
+                          serviceUnitParamMobx.setValue(value);
+                        }),
+                  ),
                   const SizedBox(
                     height: 24.0,
                   ),
@@ -94,12 +95,16 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                             case ConnectionState.active:
                               if (snapshot.hasData &&
                                   snapshot.data!.docs.isNotEmpty) {
-                                List<Maintenance> maintenances = snapshot
+                                List<Maintenance>? maintenances = snapshot
                                     .data!.docs
                                     .map((doc) => Maintenance.fromJson(
-                                        doc.data(), doc.id))
+                                        MaintenanceService
+                                            .convertTimestampToDateTime(
+                                                doc.data()),
+                                        doc.id))
                                     .toList();
                                 return ListView.builder(
+                                    shrinkWrap: true,
                                     itemCount: maintenances.length,
                                     itemBuilder: (context, index) => ListTile(
                                           title: Text(maintenances[index].id),
