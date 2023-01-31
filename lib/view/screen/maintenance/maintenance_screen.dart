@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tirol_office_mobile_app/service/maintenance_service.dart';
 import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_detail_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_form_screen.dart';
-import 'package:tirol_office_mobile_app/view/widget/maintenance/maintenance_list_tile.dart';
 
 import '../../../mobx/loading/loading_mobx.dart';
 import '../../../model/maintenance.dart';

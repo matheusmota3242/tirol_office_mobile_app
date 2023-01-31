@@ -19,4 +19,8 @@ class DepartmentService implements AbstractService<Department> {
       await collection.doc(entity.id).update(entity.toJson());
     }
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
+    return await collection.get();
+  }
 }

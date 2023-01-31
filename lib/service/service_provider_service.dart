@@ -1,4 +1,7 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tirol_office_mobile_app/dto/service_provider_dto.dart';
 import 'package:tirol_office_mobile_app/model/service_provider.dart';
 
 import 'abstract_service.dart';
@@ -19,6 +22,10 @@ class ServiceProviderService extends AbstractService<ServiceProvider> {
     } else {
       await collection.doc(entity.id).update(entity.toJson());
     }
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
+    return await collection.get();
   }
 
   static String getServiceProviderNameById(

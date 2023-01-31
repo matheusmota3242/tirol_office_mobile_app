@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:tirol_office_mobile_app/dto/equipment_dto.dart';
+import 'package:tirol_office_mobile_app/dto/service_provider_dto.dart';
+import 'package:tirol_office_mobile_app/model/service_provider.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
+import 'package:tirol_office_mobile_app/service/department_service.dart';
+import 'package:tirol_office_mobile_app/service/equipment_service.dart';
 import 'package:tirol_office_mobile_app/service/maintenance_service.dart';
+import 'package:tirol_office_mobile_app/service/service_provider_service.dart';
 import 'package:tirol_office_mobile_app/theme/theme.dart';
 import 'package:tirol_office_mobile_app/utils/constants.dart';
+import 'package:tirol_office_mobile_app/utils/utils.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
 
+import '../../../dto/department_dto.dart';
 import '../../../mobx/loading/loading_mobx.dart';
 import '../../../mobx/service_unit_param_mobx.dart/service_unit_param_mobx.dart';
 import '../../../model/maintenance.dart';
@@ -21,7 +29,15 @@ class MaintenanceListScreen extends StatefulWidget {
 class MaintenanceListScreenState extends State<MaintenanceListScreen> {
   var service = MaintenanceService();
   var unitService = ServiceUnitService();
+  var serviceProviderService = ServiceProviderService();
+  var departmentService = DepartmentService();
+  var equipmentService = EquipmentService();
+
   var units = <ServiceUnit>[];
+  var serviceProviders = <ServiceProviderDTO>[];
+  var departments = <DepartmentDTO>[];
+  var equipments = <EquipmentDTO>[];
+
   var unitIds = <String>[Constants.allItemsText];
   var loadingMobx = LoadingMobx();
   var serviceUnitParamMobx = ServiceUnitParamMobx();
@@ -29,11 +45,19 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
   @override
   void initState() {
     super.initState();
-    getServiceUnits();
+    getComplementaryData();
   }
 
-  getServiceUnits() async {
+  getComplementaryData() async {
     loadingMobx.setLoading(true);
+    await getServiceUnits();
+    await getServiceProviders();
+    await getDepartments();
+    await getEquipments();
+    loadingMobx.setLoading(false);
+  }
+
+  Future<void> getServiceUnits() async {
     var queryResult = await unitService.getAll();
     if (queryResult.docs.isNotEmpty) {
       units = queryResult.docs
@@ -41,9 +65,37 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
           .toList();
       unitIds.addAll(units.map((u) => u.name).toList());
     }
-
-    loadingMobx.setLoading(false);
   }
+
+  Future<void> getServiceProviders() async {
+    var queryResult = await serviceProviderService.getAll();
+    if (queryResult.docs.isNotEmpty) {
+      serviceProviders = queryResult.docs
+          .map((doc) => ServiceProviderDTO(doc.id, doc.data()['name']))
+          .toList();
+    }
+  }
+
+  Future<void> getDepartments() async {
+    var queryResult = await serviceProviderService.getAll();
+    if (queryResult.docs.isNotEmpty) {
+      departments = queryResult.docs
+          .map((doc) => DepartmentDTO(doc.id, doc.data()['name']))
+          .toList();
+    }
+  }
+
+  Future<void> getEquipments() async {
+    var queryResult = await serviceProviderService.getAll();
+    if (queryResult.docs.isNotEmpty) {
+      equipments = queryResult.docs
+          .map((doc) => EquipmentDTO(doc.id, doc.data()['name']))
+          .toList();
+    }
+  }
+
+  String getServiceProviderNameById(String id) =>
+      serviceProviders.firstWhere((element) => element.id == id).name;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +159,21 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                                     shrinkWrap: true,
                                     itemCount: maintenances.length,
                                     itemBuilder: (context, index) => ListTile(
-                                          title: Text(maintenances[index].id),
+                                          title: Text(
+                                            getServiceProviderNameById(
+                                                maintenances[index]
+                                                    .serviceProviderId),
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    maintenances[index].occured
+                                                        ? Colors.green
+                                                        : Colors.red),
+                                          ),
+                                          subtitle: Text(Utils.formatDateTime(
+                                              maintenances[index].dateTime)),
+                                          leading: const Icon(Icons.healing),
                                         ));
                               } else {
                                 return UtilsWidget.noData;
