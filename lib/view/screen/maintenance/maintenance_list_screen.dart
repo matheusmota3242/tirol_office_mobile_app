@@ -165,7 +165,7 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                                                     .serviceProviderId),
                                             style: TextStyle(
                                                 fontSize: 18,
-                                                fontWeight: FontWeight.w600,
+                                                fontWeight: FontWeight.w500,
                                                 color:
                                                     maintenances[index].occured
                                                         ? Colors.green
