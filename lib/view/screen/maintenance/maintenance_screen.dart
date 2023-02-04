@@ -116,8 +116,7 @@ class MaintenanceScreenState extends State<MaintenanceScreen> {
                             snapshot.data!.docs.isNotEmpty) {
                           List<Maintenance>? maintenances = snapshot.data!.docs
                               .map((doc) => Maintenance.fromJson(
-                                  MaintenanceService.convertTimestampToDateTime(
-                                      doc.data()),
+                                  Utils.convertTimestampToDateTime(doc.data()),
                                   doc.id))
                               .toList();
                           return ListView.builder(
@@ -169,15 +168,22 @@ class MaintenanceScreenState extends State<MaintenanceScreen> {
                                     ),
                                     onTap: () => Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (context) => MaintenanceDetailScreen(
-                                                maintenance:
-                                                    maintenances[index],
-                                                serviceProviderName:
-                                                    ServiceProviderService
-                                                        .getServiceProviderNameById(
-                                                            maintenances[index]
-                                                                .serviceProviderId,
-                                                            serviceProviders)))),
+                                            builder: (context) =>
+                                                MaintenanceDetailScreen(
+                                                  maintenance:
+                                                      maintenances[index],
+                                                  serviceProviderName:
+                                                      ServiceProviderService
+                                                          .getServiceProviderNameById(
+                                                              maintenances[
+                                                                      index]
+                                                                  .serviceProviderId,
+                                                              serviceProviders),
+                                                  departmentName:
+                                                      widget.departmentName,
+                                                  equipmentName:
+                                                      widget.equipmentName,
+                                                ))),
                                   ));
                         } else {
                           return UtilsWidget.noData;

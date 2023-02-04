@@ -7,7 +7,7 @@ class EquipmentService extends AbstractService<Equipment> {
 
   @override
   Future<void> remove(String id) async {
-    await collection.doc(id).delete();
+    await collection.doc(id).update({'active': false});
   }
 
   @override

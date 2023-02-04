@@ -65,29 +65,9 @@ class EquipmentFormScreenState extends State<EquipmentFormScreen> {
           child: ListView(
             children: [
               Fields.getTextFormField(nameController, 'Nome'),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Observações',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
-                  const SizedBox(height: 12.0),
-                  TextFormField(
-                    maxLines: 10,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      counterStyle: TextStyle(color: Colors.red),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                    validator: (value) =>
-                        value!.trim().isEmpty ? "Campo obrigatório" : null,
-                    controller: observationsController,
-                  ),
-                  const SizedBox(height: 24.0),
-                ],
-              ),
+              const SizedBox(height: 24.0),
+              Fields.getTextFormWithMultipleLinesField(
+                  observationsController, 'Observações', 5),
               const SizedBox(height: 24.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

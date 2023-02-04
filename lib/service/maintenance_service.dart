@@ -29,11 +29,4 @@ class MaintenanceService extends AbstractService<Maintenance> {
       return collection.where('serviceUnitId', isEqualTo: unitId).snapshots();
     }
   }
-
-  static Map<String, dynamic> convertTimestampToDateTime(
-      Map<String, dynamic> json) {
-    Timestamp timestamp = json['dateTime'];
-    json['dateTime'] = timestamp.toDate();
-    return json;
-  }
 }

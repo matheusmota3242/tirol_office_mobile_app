@@ -9,7 +9,7 @@ import '../screen/service_provider.dart/service_provider_screen.dart';
 class MyDrawer {
   static String serviceUnitsTitle = 'Unidades';
   static String maintenancesTitle = 'Manutenções';
-  static String serviceProvidersTitle = 'Provedores de serviço';
+  static String serviceProvidersTitle = 'Prestadores de serviço';
 
   static drawer(BuildContext context, String actualScreenTitle) => Drawer(
           child: ListView(

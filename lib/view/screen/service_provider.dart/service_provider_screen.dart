@@ -14,7 +14,7 @@ class ServiceProviderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final service = ServiceProviderService();
-    const screenTitle = 'PROVEDORES DE SERVIÇO';
+    const screenTitle = 'PRESTADORES DE SERVIÇO';
 
     const editOption = "Editar";
     const removeOption = "Remover";
@@ -36,7 +36,9 @@ class ServiceProviderScreen extends StatelessWidget {
       ),
       drawer: MyDrawer.drawer(context, screenTitle),
       body: StreamBuilder(
-          stream: ServiceProviderService.collection.snapshots(),
+          stream: ServiceProviderService.collection
+              .where('active', isEqualTo: true)
+              .snapshots(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:

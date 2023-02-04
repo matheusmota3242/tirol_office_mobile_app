@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class Utils {
@@ -8,5 +9,12 @@ class Utils {
 
   static isTodayAfterDateTime(DateTime dateTime) {
     return DateTime.now().isAfter(dateTime);
+  }
+
+  static Map<String, dynamic> convertTimestampToDateTime(
+      Map<String, dynamic> json) {
+    Timestamp timestamp = json['dateTime'];
+    json['dateTime'] = timestamp.toDate();
+    return json;
   }
 }

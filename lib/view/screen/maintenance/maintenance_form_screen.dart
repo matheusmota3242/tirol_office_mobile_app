@@ -105,7 +105,9 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
 
   _getServiceProviders() async {
     loadingMobx.setLoading(true);
-    var query = await ServiceProviderService.collection.get();
+    var query = await ServiceProviderService.collection
+        .where('active', isEqualTo: true)
+        .get();
     if (query.docs.isNotEmpty) {
       setState(() {
         serviceProviders = query.docs

@@ -41,6 +41,7 @@ class EquipmentScreen extends StatelessWidget {
       body: StreamBuilder(
           stream: EquipmentService.collection
               .where('departmentId', isEqualTo: departmentId)
+              .where('active', isEqualTo: true)
               .snapshots(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {

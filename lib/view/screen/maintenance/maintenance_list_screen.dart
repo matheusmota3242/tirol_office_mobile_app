@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:tirol_office_mobile_app/dto/equipment_dto.dart';
 import 'package:tirol_office_mobile_app/dto/service_provider_dto.dart';
-import 'package:tirol_office_mobile_app/model/service_provider.dart';
 import 'package:tirol_office_mobile_app/model/service_unit.dart';
 import 'package:tirol_office_mobile_app/service/department_service.dart';
 import 'package:tirol_office_mobile_app/service/equipment_service.dart';
@@ -11,6 +10,9 @@ import 'package:tirol_office_mobile_app/service/service_provider_service.dart';
 import 'package:tirol_office_mobile_app/theme/theme.dart';
 import 'package:tirol_office_mobile_app/utils/constants.dart';
 import 'package:tirol_office_mobile_app/utils/utils.dart';
+import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_detail_screen.dart';
+import 'package:tirol_office_mobile_app/view/widget/dialogs.dart';
+import 'package:tirol_office_mobile_app/view/widget/drawer.dart';
 import 'package:tirol_office_mobile_app/view/widget/utils_widget.dart';
 
 import '../../../dto/department_dto.dart';
@@ -18,6 +20,7 @@ import '../../../mobx/loading/loading_mobx.dart';
 import '../../../mobx/service_unit_param_mobx.dart/service_unit_param_mobx.dart';
 import '../../../model/maintenance.dart';
 import '../../../service/service_unit_service.dart';
+import 'maintenance_form_screen.dart';
 
 class MaintenanceListScreen extends StatefulWidget {
   const MaintenanceListScreen({Key? key}) : super(key: key);
@@ -77,7 +80,7 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
   }
 
   Future<void> getDepartments() async {
-    var queryResult = await serviceProviderService.getAll();
+    var queryResult = await departmentService.getAll();
     if (queryResult.docs.isNotEmpty) {
       departments = queryResult.docs
           .map((doc) => DepartmentDTO(doc.id, doc.data()['name']))
@@ -86,7 +89,7 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
   }
 
   Future<void> getEquipments() async {
-    var queryResult = await serviceProviderService.getAll();
+    var queryResult = await equipmentService.getAll();
     if (queryResult.docs.isNotEmpty) {
       equipments = queryResult.docs
           .map((doc) => EquipmentDTO(doc.id, doc.data()['name']))
@@ -99,12 +102,14 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const screenTitle = 'MANUTENÇÕES';
     return Scaffold(
         appBar: AppBar(
-          title: const Text('MANUTENÇÕES'),
+          title: const Text(screenTitle),
           centerTitle: true,
           backgroundColor: MyTheme.primaryColor,
         ),
+        drawer: MyDrawer.drawer(context, screenTitle),
         body: Observer(builder: (context) {
           if (loadingMobx.loading) {
             return UtilsWidget.loading;
@@ -150,9 +155,8 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                                 List<Maintenance>? maintenances = snapshot
                                     .data!.docs
                                     .map((doc) => Maintenance.fromJson(
-                                        MaintenanceService
-                                            .convertTimestampToDateTime(
-                                                doc.data()),
+                                        Utils.convertTimestampToDateTime(
+                                            doc.data()),
                                         doc.id))
                                     .toList();
                                 return ListView.builder(
@@ -174,6 +178,71 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                                           subtitle: Text(Utils.formatDateTime(
                                               maintenances[index].dateTime)),
                                           leading: const Icon(Icons.healing),
+                                          trailing: PopupMenuButton(
+                                            itemBuilder: (context) => [
+                                              const PopupMenuItem(
+                                                value: Constants.editOpionText,
+                                                child: Text(
+                                                    Constants.editOpionText),
+                                              ),
+                                              const PopupMenuItem(
+                                                value:
+                                                    Constants.removeOpionText,
+                                                child: Text(
+                                                    Constants.removeOpionText),
+                                              )
+                                            ],
+                                            onSelected: (value) {
+                                              if (Constants.editOpionText ==
+                                                  value) {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MaintenanceFormScreen(
+                                                                maintenance:
+                                                                    maintenances[
+                                                                        index])));
+                                              } else if (Constants
+                                                      .removeOpionText ==
+                                                  value) {
+                                                Dialogs.deleteDialog(
+                                                    context,
+                                                    'manutenção de ${ServiceProviderService.getServiceProviderDTONameById(maintenances[index].serviceProviderId, serviceProviders)}',
+                                                    service.remove,
+                                                    maintenances[index].id);
+                                              }
+                                            },
+                                          ),
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MaintenanceDetailScreen(
+                                                        maintenance:
+                                                            maintenances[index],
+                                                        serviceProviderName:
+                                                            serviceProviders
+                                                                .firstWhere((sp) =>
+                                                                    maintenances[
+                                                                            index]
+                                                                        .serviceProviderId ==
+                                                                    sp.id)
+                                                                .name,
+                                                        departmentName: departments
+                                                            .firstWhere((element) =>
+                                                                element.id ==
+                                                                maintenances[
+                                                                        index]
+                                                                    .departmentId)
+                                                            .name,
+                                                        equipmentName: equipments
+                                                            .firstWhere((element) =>
+                                                                element.id ==
+                                                                maintenances[
+                                                                        index]
+                                                                    .equipmentId)
+                                                            .name,
+                                                      ))),
                                         ));
                               } else {
                                 return UtilsWidget.noData;

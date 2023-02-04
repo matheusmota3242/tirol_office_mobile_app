@@ -12,7 +12,7 @@ class ServiceProviderService extends AbstractService<ServiceProvider> {
 
   @override
   Future<void> remove(String id) async {
-    await collection.doc(id).delete();
+    await collection.doc(id).update({'active': false});
   }
 
   @override
@@ -30,6 +30,11 @@ class ServiceProviderService extends AbstractService<ServiceProvider> {
 
   static String getServiceProviderNameById(
       String id, List<ServiceProvider> serviceProviders) {
+    return serviceProviders.firstWhere((sp) => sp.id == id).name;
+  }
+
+  static String getServiceProviderDTONameById(
+      String id, List<ServiceProviderDTO> serviceProviders) {
     return serviceProviders.firstWhere((sp) => sp.id == id).name;
   }
 }
