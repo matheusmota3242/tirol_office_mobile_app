@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tirol_office_mobile_app/dto/equipment_dto.dart';
 import 'package:tirol_office_mobile_app/model/equipment.dart';
 import 'package:tirol_office_mobile_app/service/abstract_service.dart';
 
@@ -21,5 +22,9 @@ class EquipmentService extends AbstractService<Equipment> {
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
     return await collection.get();
+  }
+
+  String getEquipmentNameById(String id, List<EquipmentDTO> equipments) {
+    return equipments.firstWhere((equipment) => equipment.id == id).name;
   }
 }

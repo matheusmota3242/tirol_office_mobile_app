@@ -64,10 +64,10 @@ class EquipmentFormScreenState extends State<EquipmentFormScreen> {
           key: _formKey,
           child: ListView(
             children: [
-              Fields.getTextFormField(nameController, 'Nome'),
+              Fields.getTextFormField(nameController, 'Nome*', true),
               const SizedBox(height: 24.0),
               Fields.getTextFormWithMultipleLinesField(
-                  observationsController, 'Observações', 5),
+                  observationsController, 'Observações', 5, false),
               const SizedBox(height: 24.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

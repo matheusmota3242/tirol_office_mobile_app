@@ -4,7 +4,7 @@ import '../../theme/theme.dart';
 
 class Fields {
   static Widget getTextFormField(
-      TextEditingController controller, String fieldName) {
+      TextEditingController controller, String fieldName, bool required) {
     return TextFormField(
       decoration: InputDecoration(
         labelText: fieldName,
@@ -16,13 +16,16 @@ class Fields {
           borderSide: BorderSide.none,
         ),
       ),
-      validator: (value) => value!.trim().isEmpty ? "Campo obrigatório" : null,
+      validator: (value) => defaultValidation(value!, required),
       controller: controller,
     );
   }
 
   static Widget getTextFormWithMultipleLinesField(
-      TextEditingController controller, String fieldName, int numberOfLines) {
+      TextEditingController controller,
+      String fieldName,
+      int numberOfLines,
+      bool required) {
     return TextFormField(
       maxLines: numberOfLines,
       decoration: InputDecoration(
@@ -35,7 +38,7 @@ class Fields {
           borderSide: BorderSide.none,
         ),
       ),
-      validator: (value) => value!.trim().isEmpty ? "Campo obrigatório" : null,
+      validator: (value) => defaultValidation(value!, required),
       controller: controller,
     );
   }
@@ -64,5 +67,13 @@ class Fields {
         const SizedBox(height: 24.0),
       ],
     );
+  }
+
+  static defaultValidation(String value, bool required) {
+    if (required) {
+      return value.trim().isEmpty ? "Campo obrigatório" : null;
+    } else {
+      return null;
+    }
   }
 }

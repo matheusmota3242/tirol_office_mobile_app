@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tirol_office_mobile_app/dto/department_dto.dart';
 import 'package:tirol_office_mobile_app/model/department.dart';
 import 'package:tirol_office_mobile_app/service/abstract_service.dart';
 
@@ -22,5 +23,9 @@ class DepartmentService implements AbstractService<Department> {
 
   Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
     return await collection.get();
+  }
+
+  String getDepartmentNameById(String id, List<DepartmentDTO> departments) {
+    return departments.firstWhere((department) => department.id == id).name;
   }
 }

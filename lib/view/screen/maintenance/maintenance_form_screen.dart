@@ -191,7 +191,7 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
                     dateField(),
                     const SizedBox(height: 24.0),
                     Fields.getTextFormWithMultipleLinesField(
-                        problemDescriptionController, 'Descrição*', 3),
+                        problemDescriptionController, 'Descrição*', 3, true),
                     const SizedBox(height: 24.0),
                     Visibility(
                         visible: widget.maintenance.id.isEmpty &&
@@ -199,7 +199,10 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
                             ? false
                             : true,
                         child: Fields.getTextFormWithMultipleLinesField(
-                            solutionDescriptionController, "Solução*", 3)),
+                            solutionDescriptionController,
+                            "Solução",
+                            3,
+                            false)),
                     const SizedBox(
                       height: 24,
                     ),

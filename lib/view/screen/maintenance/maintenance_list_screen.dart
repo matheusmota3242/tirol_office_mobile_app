@@ -175,8 +175,8 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                                                         ? Colors.green
                                                         : Colors.red),
                                           ),
-                                          subtitle: Text(Utils.formatDateTime(
-                                              maintenances[index].dateTime)),
+                                          subtitle: Text(
+                                              '${Utils.formatDateTime(maintenances[index].dateTime)}\n${departmentService.getDepartmentNameById(maintenances[index].departmentId, departments)} | ${equipmentService.getEquipmentNameById(maintenances[index].equipmentId, equipments)}'),
                                           leading: const Icon(Icons.healing),
                                           trailing: PopupMenuButton(
                                             itemBuilder: (context) => [
