@@ -73,10 +73,23 @@ class ServiceProviderFormScreenState extends State<ServiceProviderFormScreen> {
             child: ListView(
               children: [
                 Fields.getTextFormField(_nameController, "Nome*", true),
+                const SizedBox(
+                  height: 24,
+                ),
                 Fields.getTextFormField(
                     _descriptionController, "Descrição*", true),
-                Fields.getNumberFormField(_phoneController, "Telefone*"),
-                Fields.getTextFormField(_emailController, "E-mail*", true),
+                const SizedBox(
+                  height: 24,
+                ),
+                Fields.getPhoneNumberFormField(
+                    _phoneController, "Telefone*", true),
+                const SizedBox(
+                  height: 24,
+                ),
+                Fields.getEmailTextFormField(_emailController, "E-mail*", true),
+                const SizedBox(
+                  height: 24,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

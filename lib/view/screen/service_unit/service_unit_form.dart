@@ -78,9 +78,21 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
           child: ListView(
             children: [
               Fields.getTextFormField(nameController, "Nome*", true),
-              Fields.getTextFormField(addressController, "Logradouro*", true),
-              Fields.getTextFormField(districtController, "Bairro*", true),
-              Fields.getNumberFormField(numberController, "Número*"),
+              const SizedBox(
+                height: 24,
+              ),
+              Fields.getAddressTextFormField(
+                  addressController, "Logradouro*", true),
+              const SizedBox(
+                height: 24,
+              ),
+              Fields.getAddressTextFormField(
+                  districtController, "Bairro*", true),
+              const SizedBox(
+                height: 24,
+              ),
+              Fields.getAddressNumberFormField(
+                  numberController, "Número*", true),
               const SizedBox(height: 24.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -21,6 +21,42 @@ class Fields {
     );
   }
 
+  static Widget getAddressTextFormField(
+      TextEditingController controller, String fieldName, bool required) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: fieldName,
+        labelStyle: MyTheme.labelStyle,
+        filled: true,
+        prefixIcon: const Icon(Icons.location_on),
+        counterStyle: const TextStyle(color: Colors.red),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+      ),
+      validator: (value) => defaultValidation(value!, required),
+      controller: controller,
+    );
+  }
+
+  static Widget getEmailTextFormField(
+      TextEditingController controller, String fieldName, bool required) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: fieldName,
+        labelStyle: MyTheme.labelStyle,
+        filled: true,
+        prefixIcon: const Icon(Icons.email),
+        counterStyle: const TextStyle(color: Colors.red),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+      ),
+      validator: (value) => defaultValidation(value!, required),
+      controller: controller,
+    );
+  }
+
   static Widget getTextFormWithMultipleLinesField(
       TextEditingController controller,
       String fieldName,
@@ -44,28 +80,58 @@ class Fields {
   }
 
   static Widget getNumberFormField(
-      TextEditingController controller, String fieldName) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(fieldName,
-            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
-        const SizedBox(height: 12.0),
-        TextFormField(
-          controller: controller,
-          validator: (value) =>
-              value!.trim().isEmpty ? "Campo obrigatório" : null,
-          keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            filled: true,
-            counterStyle: TextStyle(color: Colors.red),
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-            ),
-          ),
+      TextEditingController controller, String fieldName, bool required) {
+    return TextFormField(
+      controller: controller,
+      validator: (value) => defaultValidation(value!, required),
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: fieldName,
+        labelStyle: MyTheme.labelStyle,
+        filled: true,
+        counterStyle: const TextStyle(color: Colors.red),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
         ),
-        const SizedBox(height: 24.0),
-      ],
+      ),
+    );
+  }
+
+  static Widget getPhoneNumberFormField(
+      TextEditingController controller, String fieldName, bool required) {
+    return TextFormField(
+      controller: controller,
+      validator: (value) => defaultValidation(value!, required),
+      keyboardType: TextInputType.phone,
+      decoration: InputDecoration(
+        labelText: fieldName,
+        labelStyle: MyTheme.labelStyle,
+        prefixIcon: const Icon(Icons.phone),
+        filled: true,
+        counterStyle: const TextStyle(color: Colors.red),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+
+  static Widget getAddressNumberFormField(
+      TextEditingController controller, String fieldName, bool required) {
+    return TextFormField(
+      controller: controller,
+      validator: (value) => defaultValidation(value!, required),
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: fieldName,
+        labelStyle: MyTheme.labelStyle,
+        prefixIcon: const Icon(Icons.pin),
+        filled: true,
+        counterStyle: const TextStyle(color: Colors.red),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+      ),
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_list
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
 import '../../theme/theme.dart';
+import '../screen/auth/login_screen.dart';
 import '../screen/service_provider.dart/service_provider_screen.dart';
 
 class MyDrawer {
@@ -36,7 +37,7 @@ class MyDrawer {
               serviceUnitsTitle,
               style: TextStyle(fontSize: 20, color: Colors.grey[600]),
             ),
-            leading: const Icon(Icons.house),
+            leading: const Icon(Icons.home),
             onTap: () {
               if (isNotActualScreen(serviceUnitsTitle, actualScreenTitle)) {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -68,6 +69,17 @@ class MyDrawer {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const ServiceProviderScreen()));
               }
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Sair',
+              style: TextStyle(fontSize: 20, color: Colors.red[400]),
+            ),
+            leading: Icon(Icons.logout, color: Colors.red[400]),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             },
           )
         ],

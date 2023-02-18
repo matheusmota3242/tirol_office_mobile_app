@@ -67,7 +67,7 @@ class ServiceUnitScreen extends StatelessWidget {
                                             serviceUnitId: units[index].id,
                                             serviceUnitName: units[index].name,
                                           ))),
-                              leading: const Icon(Icons.house),
+                              leading: const Icon(Icons.home),
                               title: Text(
                                 units![index].name,
                                 style: MyTheme.listTileTitleStyle,

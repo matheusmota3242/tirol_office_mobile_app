@@ -9,4 +9,12 @@ class AuthService {
       print(e);
     }
   }
+
+  Future logout(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
 }
