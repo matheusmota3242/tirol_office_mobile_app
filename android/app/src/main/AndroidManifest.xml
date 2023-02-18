@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tirol_office_mobile_app">
    <application
-        android:label="tirol_office_mobile_app"
+        android:label="Tirol Office"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
