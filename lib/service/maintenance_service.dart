@@ -24,9 +24,12 @@ class MaintenanceService extends AbstractService<Maintenance> {
   Stream<QuerySnapshot<Map<String, dynamic>>> getMaintenancesByUnit(
       String unitId) {
     if (unitId == Constants.allItemsText) {
-      return collection.snapshots();
+      return collection.orderBy('dateTime', descending: true).snapshots();
     } else {
-      return collection.where('serviceUnitId', isEqualTo: unitId).snapshots();
+      return collection
+          .where('serviceUnitId', isEqualTo: unitId)
+          .orderBy('dateTime', descending: true)
+          .snapshots();
     }
   }
 }

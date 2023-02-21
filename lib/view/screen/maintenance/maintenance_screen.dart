@@ -106,6 +106,7 @@ class MaintenanceScreenState extends State<MaintenanceScreen> {
                       .where('serviceUnitId', isEqualTo: widget.serviceUnitId)
                       .where('departmentId', isEqualTo: widget.departmentId)
                       .where('equipmentId', isEqualTo: widget.equipmentId)
+                      .orderBy('dateTime', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
