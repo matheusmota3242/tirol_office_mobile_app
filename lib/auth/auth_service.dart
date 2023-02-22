@@ -5,12 +5,8 @@ import 'package:tirol_office_mobile_app/view/widget/snackbars.dart';
 
 class AuthService {
   Future login(String email, String password) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-    } catch (e) {
-      print(e);
-    }
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
   }
 
   static Future logout() async {

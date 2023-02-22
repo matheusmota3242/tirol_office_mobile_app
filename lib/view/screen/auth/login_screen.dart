@@ -4,6 +4,8 @@ import 'package:tirol_office_mobile_app/utils/validation_utils.dart';
 import 'package:tirol_office_mobile_app/view/screen/auth/forgot_password_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/auth/signin_screen.dart';
 
+import '../../widget/snackbars.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -162,7 +164,12 @@ class LoginScreenState extends State<LoginScreen> {
 
   Future login(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      await _authService.login(_email, _password);
+      try {
+        await _authService.login(_email, _password);
+      } catch (e) {
+        SnackBars.showSnackBar(
+            context, 'Erro ao tentar realizar login. Confira seus dados.');
+      }
     }
   }
 }
