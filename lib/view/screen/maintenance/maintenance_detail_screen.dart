@@ -57,6 +57,11 @@ class MaintenanceDetailScreen extends StatelessWidget {
             ),
             MaintenanceDetailItem.showMaintenanceDetailItem(
                 'Descrição da solução', maintenance.solutionDescription),
+            const SizedBox(
+              height: 20,
+            ),
+            MaintenanceDetailItem.showMaintenanceStatusDetailItem(
+                'Status', maintenance.occured)
           ]),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:tirol_office_mobile_app/view/widget/snackbars.dart';
 
 import '../../../service/service_unit_service.dart';
 import '../../widget/fields.dart';
+import '../../widget/paddings.dart';
 
 class ServiceUnitFormScreen extends StatefulWidget {
   const ServiceUnitFormScreen({Key? key, required this.serviceUnit})
@@ -72,11 +73,14 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: Paddings.screenPadding,
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
+              const SizedBox(
+                height: 24,
+              ),
               Fields.getTextFormField(nameController, "Nome*", true),
               const SizedBox(
                 height: 24,
@@ -93,7 +97,7 @@ class _ServiceUnitFormScreenState extends State<ServiceUnitFormScreen> {
               ),
               Fields.getAddressNumberFormField(
                   numberController, "Número*", true),
-              const SizedBox(height: 24.0),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

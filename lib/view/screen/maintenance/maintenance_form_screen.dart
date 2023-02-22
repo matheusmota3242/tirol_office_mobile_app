@@ -209,20 +209,27 @@ class MaintenanceFormScreenState extends State<MaintenanceFormScreen> {
                     Visibility(
                       visible: Utils.isTodayAfterDateTime(
                           widget.maintenance.dateTime),
-                      child: CheckboxListTile(
-                          title: const Text(
-                            'Status',
-                            style: MyTheme.listTileTitleStyle,
-                          ),
-                          value: widget.maintenance.occured,
-                          onChanged: (value) {
-                            setState(() {
-                              widget.maintenance.occured = value!;
-                            });
-                          }),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey[100],
+                        ),
+                        child: CheckboxListTile(
+                            title: const Text(
+                              'Status',
+                              style: MyTheme.listTileTitleStyle,
+                            ),
+                            value: widget.maintenance.occured,
+                            onChanged: (value) {
+                              setState(() {
+                                widget.maintenance.occured = value!;
+                              });
+                            }),
+                      ),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 50,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

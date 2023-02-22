@@ -60,7 +60,7 @@ class EquipmentScreen extends StatelessWidget {
                           '$serviceUnitName  >  $departmentName',
                           style: MyTheme.listTileTitleStyle,
                         ),
-                        leading: const Icon(Icons.home),
+                        leading: const Icon(Icons.door_front_door_rounded),
                       ),
                       const SizedBox(height: 10),
                       Container(

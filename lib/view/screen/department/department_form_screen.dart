@@ -61,7 +61,7 @@ class DepartmentFormScreenState extends State<DepartmentFormScreen> {
               child: ListView(
                 children: [
                   Fields.getTextFormField(nameController, 'Nome*', true),
-                  const SizedBox(height: 24.0),
+                  const SizedBox(height: 50),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

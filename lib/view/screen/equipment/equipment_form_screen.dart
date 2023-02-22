@@ -4,6 +4,7 @@ import '../../../model/equipment.dart';
 import '../../../service/equipment_service.dart';
 import '../../widget/buttons.dart';
 import '../../widget/fields.dart';
+import '../../widget/paddings.dart';
 import '../../widget/snackbars.dart';
 
 class EquipmentFormScreen extends StatefulWidget {
@@ -59,16 +60,17 @@ class EquipmentFormScreenState extends State<EquipmentFormScreen> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: Paddings.screenPadding,
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
+              const SizedBox(height: 24.0),
               Fields.getTextFormField(nameController, 'Nome*', true),
               const SizedBox(height: 24.0),
               Fields.getTextFormWithMultipleLinesField(
                   observationsController, 'Observações', 5, false),
-              const SizedBox(height: 24.0),
+              const SizedBox(height: 50.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

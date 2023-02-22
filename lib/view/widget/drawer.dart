@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/view/screen/maintenance/maintenance_list_screen.dart';
 import 'package:tirol_office_mobile_app/view/screen/service_unit/service_unit_screen.dart';
 
+import '../../auth/auth_service.dart';
 import '../../theme/theme.dart';
 import '../screen/auth/login_screen.dart';
 import '../screen/service_provider.dart/service_provider_screen.dart';
@@ -78,6 +79,7 @@ class MyDrawer {
             ),
             leading: Icon(Icons.logout, color: Colors.red[400]),
             onTap: () {
+              AuthService.logout();
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const LoginScreen()));
             },

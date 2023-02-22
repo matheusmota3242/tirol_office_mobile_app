@@ -175,6 +175,7 @@ class MaintenanceListScreenState extends State<MaintenanceListScreen> {
                                                         ? Colors.green
                                                         : Colors.red),
                                           ),
+                                          minVerticalPadding: 12,
                                           subtitle: Text(
                                               '${Utils.formatDateTime(maintenances[index].dateTime)}\n${departmentService.getDepartmentNameById(maintenances[index].departmentId, departments)} | ${equipmentService.getEquipmentNameById(maintenances[index].equipmentId, equipments)}'),
                                           leading: const Icon(Icons.healing),

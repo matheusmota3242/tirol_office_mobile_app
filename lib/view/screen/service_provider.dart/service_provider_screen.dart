@@ -54,7 +54,7 @@ class ServiceProviderScreen extends StatelessWidget {
                     itemBuilder: (context, index) => ListTile(
                       title: Text(serviceProviders[index].name,
                           style: MyTheme.listTileTitleStyle),
-                      subtitle: Text(
+                      subtitle: SelectableText(
                           '\n${serviceProviders[index].description}\n\nTelefone: ${serviceProviders[index].phone}\n\nEmail: ${serviceProviders[index].email}'),
                       contentPadding: const EdgeInsets.all(24),
                       leading: const Icon(Icons.business_center),

@@ -6,6 +6,7 @@ class Fields {
   static Widget getTextFormField(
       TextEditingController controller, String fieldName, bool required) {
     return TextFormField(
+      autofocus: true,
       decoration: InputDecoration(
         labelText: fieldName,
         labelStyle: MyTheme.labelStyle,

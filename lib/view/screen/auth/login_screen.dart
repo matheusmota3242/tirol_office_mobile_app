@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tirol_office_mobile_app/auth/auth_service.dart';
 import 'package:tirol_office_mobile_app/utils/validation_utils.dart';
+import 'package:tirol_office_mobile_app/view/screen/auth/forgot_password_screen.dart';
+import 'package:tirol_office_mobile_app/view/screen/auth/signin_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -30,7 +32,12 @@ class LoginScreenState extends State<LoginScreen> {
             _loginImage(screenHeight),
             _emailField(screenHeight),
             _passwordField(screenHeight),
-            _submitButton(context, screenHeight)
+            TextButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const ForgotPasswordScreen())),
+                child: const Text('Esqueceu a senha?')),
+            _submitButton(context, screenHeight),
+            _toSigninScreenButton(context, screenHeight)
           ],
         ),
       ),
@@ -118,7 +125,7 @@ class LoginScreenState extends State<LoginScreen> {
               backgroundColor: MaterialStateColor.resolveWith(
                   (states) => Theme.of(context).primaryColor),
             ),
-            child: const Text("Enviar")
+            child: const Text("Entrar")
             // child: RaisedButton(
             //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             //   onPressed: () {
@@ -136,7 +143,26 @@ class LoginScreenState extends State<LoginScreen> {
             ));
   }
 
+  Padding _toSigninScreenButton(BuildContext context, double screenHeight) {
+    var verticalPadding = (screenHeight / 40);
+    return Padding(
+        padding: EdgeInsets.fromLTRB(_horizontalPadding, verticalPadding,
+            _horizontalPadding, verticalPadding),
+        child: ElevatedButton(
+            onPressed: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => const SigninScreen())),
+            style: ElevatedButton.styleFrom(
+              backgroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.grey),
+              foregroundColor:
+                  MaterialStateColor.resolveWith((states) => Colors.white),
+            ),
+            child: const Text("Cadastrar-se")));
+  }
+
   Future login(BuildContext context) async {
-    await _authService.login(_email, _password);
+    if (_formKey.currentState!.validate()) {
+      await _authService.login(_email, _password);
+    }
   }
 }
