@@ -4,6 +4,7 @@ import 'package:tirol_office_mobile_app/service/service_provider_service.dart';
 import 'package:tirol_office_mobile_app/view/widget/fields.dart';
 
 import '../../widget/buttons.dart';
+import '../../widget/paddings.dart';
 import '../../widget/snackbars.dart';
 
 class ServiceProviderFormScreen extends StatefulWidget {
@@ -67,11 +68,14 @@ class ServiceProviderFormScreenState extends State<ServiceProviderFormScreen> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: Paddings.screenPadding,
         child: Form(
             key: _formKey,
             child: ListView(
               children: [
+                const SizedBox(
+                  height: 24,
+                ),
                 Fields.getTextFormField(_nameController, "Nome*", true),
                 const SizedBox(
                   height: 24,

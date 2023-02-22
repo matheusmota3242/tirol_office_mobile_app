@@ -7,11 +7,10 @@ import '../../../utils/validation_utils.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
+  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     final ValidationUtils validationUtils = ValidationUtils();
     final AuthService authService = AuthService();
 
@@ -41,7 +40,6 @@ class ForgotPasswordScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(horizontalPadding, verticalPadding,
             horizontalPadding, fieldVerticalPadding),
         child: TextFormField(
-          autofocus: true,
           controller: emailController,
           validator: (value) => validationUtils.validateEmail(value!.trim()),
           keyboardType: TextInputType.emailAddress,
